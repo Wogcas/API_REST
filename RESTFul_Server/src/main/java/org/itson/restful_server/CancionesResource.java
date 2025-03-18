@@ -7,6 +7,7 @@ package org.itson.restful_server;
 import com.itson.restful_entidad.CancionDTO;
 import daos.CancionDAO;
 import daos.ICancionDAO;
+import entidades.Cancion;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
@@ -18,6 +19,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.itson.restful_server.conversor.ConversorCancion;
 
 /**
  * REST Web Service
@@ -39,18 +41,19 @@ public class CancionesResource {
     public CancionesResource() {
     }
 
-//    @Path("/agregar")
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response agregarCancion(Cancion cancion) {
-//        try {
-//            cancionDAO.agregar(cancion);
-//            return Response.status(200).entity(cancion).build();
-//        } catch (Exception e) {
-//            Response.status(Response.Status.UNAUTHORIZED);
-//        }
-//    }
+    @Path("/agregar")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response agregarCancion(CancionDTO cancion) {
+        try {
+            Cancion cancionAgregada = ConversorCancion.DTOToEntity(cancion);
+            cancionDAO.agregar(cancionAgregada);
+            return Response.status(200).entity(cancion).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
 
 //    /**
 //     * Retrieves representation of an instance of org.itson.restful_server.CancionesResource

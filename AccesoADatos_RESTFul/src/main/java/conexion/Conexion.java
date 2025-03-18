@@ -1,48 +1,30 @@
-
 package conexion;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 /**
  *
  * @author victo
  */
-public class Conexion implements IConexion{
+public class Conexion {
 
-    private static EntityManagerFactory entityManagerFactory;
-    private static Conexion instance;
+    private static EntityManager entityManager;
 
-    private Conexion() {
+    /**
+     * Crea una conexión con el gestor de persistencia.
+     *
+     * @return Un objeto EntityManager para interactuar con la base de datos.
+     */
+    static {
+        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("MusicaPU");
+        // Solicitamos una entity manager (acceso a la BD)
+        entityManager = emFactory.createEntityManager();
     }
 
-    private static EntityManagerFactory getEntityManagerFactory(){
-        if (entityManagerFactory == null) {
-            try {
-                entityManagerFactory = Persistence.createEntityManagerFactory("MusicaPU");
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-        }
-        return entityManagerFactory;
-    }
-    
-    public static Conexion getInstance() {
-        if (instance == null) {
-            instance = new Conexion();
-        }
-        return instance;
-    }
-
-    @Override
-    public EntityManager crearConexion(){
-        return getEntityManagerFactory().createEntityManager();
-    }
-
-    public static void cerrarConexion() {
-        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
-            entityManagerFactory.close();
-        }
+    // Método para obtener el EntityManager (opcional pero recomendado)
+    public static EntityManager getEntityManager() {
+        return entityManager;
     }
 }

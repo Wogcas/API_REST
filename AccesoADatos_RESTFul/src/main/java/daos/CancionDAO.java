@@ -1,30 +1,29 @@
-
 package daos;
 
 import conexion.Conexion;
 import entidades.Cancion;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.logging.Level;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 
 /**
  *
  * @author victo
  */
-public class CancionDAO implements ICancionDAO{
+public class CancionDAO implements ICancionDAO {
 
     private EntityManager entityManager;
-    
     private static final Logger logger = Logger.getLogger(CancionDAO.class.getName());
 
     public CancionDAO() {
-        this.entityManager = Conexion.getInstance().crearConexion();
+        this.entityManager = Conexion.getEntityManager();
     }
-    
-    
+
     @Override
     public void agregar(Cancion cancion) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -80,7 +79,7 @@ public class CancionDAO implements ICancionDAO{
             TypedQuery<Cancion> query = entityManager.createQuery("SELECT c FROM Cancion c", Cancion.class);
             return query.getResultList();
         } catch (Exception e) {
-            logger.log(Level.SEVERE,e.getMessage());
+            logger.log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
@@ -109,5 +108,5 @@ public class CancionDAO implements ICancionDAO{
         }
         return null;
     }
-    
+
 }

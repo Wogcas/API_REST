@@ -1,6 +1,5 @@
-conexion/Conexion.class
-conexion/IConexion.class
-daos/CancionDAO.class
-daos/ICancionDAO.class
-com/itson/accesoadatos_restful/AccesoADatos_RESTFul.class
-entidades/Cancion.class
+daos\ICancionDAO.class
+conexion\Conexion.class
+daos\CancionDAO.class
+com\itson\accesoadatos_restful\AccesoADatos_RESTFul.class
+entidades\Cancion.class
