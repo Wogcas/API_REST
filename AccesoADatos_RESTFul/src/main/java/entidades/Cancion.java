@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @author victo
  */
 @Entity
+@Table(name="Cancion")
 public class Cancion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +36,7 @@ public class Cancion implements Serializable {
 
     public Cancion() {
     }
-   
+
     public Cancion(Long id, String nombre, String artista, Float duracion, String compositor) {
         this.id = id;
         this.nombre = nombre;

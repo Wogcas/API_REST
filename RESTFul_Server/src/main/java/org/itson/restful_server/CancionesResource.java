@@ -73,13 +73,12 @@ public class CancionesResource {
     public Response getCanciones() {
         try {
             List<Cancion> canciones = cancionDAO.obtenerTodasLasCanciones();
-            
             System.out.println("Canciones obtenidas: " + canciones.size());
 //            List<CancionDTO> cancionesDTO = new ArrayList<>();
 //            for (Cancion c : canciones) {
 //                cancionesDTO.add(ConversorCancion.entityToDTO(c));
 //            }
-            return Response.status(200).entity(canciones.toArray()).build();
+            return Response.ok(canciones).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
