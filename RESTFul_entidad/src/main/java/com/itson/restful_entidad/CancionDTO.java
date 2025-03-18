@@ -5,7 +5,7 @@ package com.itson.restful_entidad;
  *
  * @author victo
  */
-public class Cancion {
+public class CancionDTO {
      
     private Long id;
     private String nombre;
@@ -13,10 +13,10 @@ public class Cancion {
     private Float duracion;
     private String compositor;
 
-    public Cancion() {
+    public CancionDTO() {
     }
 
-    public Cancion(Long id, String nombre, String artista, Float duracion, String compositor) {
+    public CancionDTO(Long id, String nombre, String artista, Float duracion, String compositor) {
         this.id = id;
         this.nombre = nombre;
         this.artista = artista;

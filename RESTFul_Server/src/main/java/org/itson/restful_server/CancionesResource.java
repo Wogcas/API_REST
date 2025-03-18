@@ -4,7 +4,7 @@
  */
 package org.itson.restful_server;
 
-import com.itson.restful_entidad.Cancion;
+import com.itson.restful_entidad.CancionDTO;
 import daos.CancionDAO;
 import daos.ICancionDAO;
 import jakarta.ws.rs.core.Context;
