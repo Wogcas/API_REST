@@ -11,4 +11,11 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>org.itson.restful_client.RESTFul_Client</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media.json-binding</artifactId>
+            <version>4.0.0-M2</version>
+        </dependency>
+    </dependencies>
 </project>
