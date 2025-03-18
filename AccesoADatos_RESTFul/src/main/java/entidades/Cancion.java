@@ -34,6 +34,8 @@ public class Cancion implements Serializable {
 
     public Cancion() {
     }
+    
+    
 
     public Cancion(Long id, String nombre, String artista, Float duracion, String compositor) {
         this.id = id;

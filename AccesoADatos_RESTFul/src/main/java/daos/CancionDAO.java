@@ -15,6 +15,7 @@ import java.util.logging.Level;
  *
  * @author victo
  */
+
 public class CancionDAO implements ICancionDAO {
 
     private EntityManager entityManager;
@@ -26,14 +27,13 @@ public class CancionDAO implements ICancionDAO {
 
     @Override
     public void agregar(Cancion cancion) {
-        EntityTransaction transaction = entityManager.getTransaction();
         try {
-            transaction.begin();
+            entityManager.getTransaction().begin();
             entityManager.persist(cancion);
-            transaction.commit();
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction.isActive()) {
-                transaction.rollback();
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
             }
             logger.log(Level.SEVERE, e.getMessage());
         }

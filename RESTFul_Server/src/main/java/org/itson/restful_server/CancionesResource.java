@@ -49,9 +49,10 @@ public class CancionesResource {
         try {
             Cancion cancionAgregada = ConversorCancion.DTOToEntity(cancion);
             cancionDAO.agregar(cancionAgregada);
-            return Response.status(200).entity(cancion).build();
+            return Response.status(201).entity(cancion).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            System.err.println(e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 

@@ -16,6 +16,13 @@ public class CancionDTO {
     public CancionDTO() {
     }
 
+    public CancionDTO(String nombre, String artista, Float duracion, String compositor) {
+        this.nombre = nombre;
+        this.artista = artista;
+        this.duracion = duracion;
+        this.compositor = compositor;
+    }
+    
     public CancionDTO(Long id, String nombre, String artista, Float duracion, String compositor) {
         this.id = id;
         this.nombre = nombre;
