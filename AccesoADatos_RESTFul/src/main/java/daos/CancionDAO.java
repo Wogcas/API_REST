@@ -22,7 +22,7 @@ public class CancionDAO implements ICancionDAO {
     private static final Logger logger = Logger.getLogger(CancionDAO.class.getName());
 
     public CancionDAO() {
-        this.entityManager = Conexion.getEntityManager();
+        this.entityManager = Conexion.createEntityManager();
     }
 
     @Override

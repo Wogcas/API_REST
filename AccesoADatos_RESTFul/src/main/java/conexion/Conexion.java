@@ -10,21 +10,15 @@ import jakarta.persistence.Persistence;
  */
 public class Conexion {
 
-    private static EntityManager entityManager;
+    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("MusicaPU");
 
     /**
      * Crea una conexión con el gestor de persistencia.
      *
      * @return Un objeto EntityManager para interactuar con la base de datos.
      */
-    static {
-        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("MusicaPU");
-        // Solicitamos una entity manager (acceso a la BD)
-        entityManager = emFactory.createEntityManager();
+    public static EntityManager createEntityManager() {
+        return entityManagerFactory.createEntityManager();
     }
 
-    // Método para obtener el EntityManager (opcional pero recomendado)
-    public static EntityManager getEntityManager() {
-        return entityManager;
-    }
 }

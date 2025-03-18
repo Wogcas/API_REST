@@ -1,4 +1,4 @@
-package org.itson.restful_server;
+    package org.itson.restful_server;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

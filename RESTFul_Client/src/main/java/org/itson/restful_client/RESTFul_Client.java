@@ -6,10 +6,10 @@ package org.itson.restful_client;
 import com.itson.restful_entidad.CancionDTO;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.Response;
+import java.util.List;
 
 /**
  *
@@ -21,21 +21,38 @@ public class RESTFul_Client {
     private static WebTarget base = client.target("http://localhost:8080/RESTFul_Server/resources/canciones");
 
     public static void main(String[] args) {
-        base = base.path("agregar");
 
-        Response post = base.request()
-                .post(Entity.entity(
-                        new CancionDTO("Mo bamba", "Check wes", 2.3F, "Check wes"),
-                        MediaType.APPLICATION_JSON));
-        if (post.getStatus() == 201) {
-            CancionDTO resp = post.readEntity(CancionDTO.class);
-            resp.toString();
-            System.out.println(resp.getNombre());
+        Response get = base.request().get();
+        if (get.getStatus() == 200) {
+            List<CancionDTO> canciones = get.readEntity(new GenericType<List<CancionDTO>>() {
+            });
+
+            if (!canciones.isEmpty()) {
+                for (CancionDTO cancion : canciones) {
+                    System.out.println(cancion.getNombre());
+                }
+            } else {
+                System.out.println("No se encontraron canciones");
+            }
         } else {
-            post.getStatus();
-            System.out.println(post.getStatus());
+            System.out.println("Error al obtener canciones: " + get.getStatus());
         }
     }
+
+//        base = base.path("agregar");
+//
+//        Response post = base.request()
+//                .post(Entity.entity(
+//                        new CancionDTO("Mo bamba", "Check wes", 2.3F, "Check wes"),
+//                        MediaType.APPLICATION_JSON));
+//
+//        if (post.getStatus() == 201) {
+//            CancionDTO resp = post.readEntity(CancionDTO.class);
+//            System.out.println(resp.toString());
+//            System.out.println("Canción agregada: " + resp.getNombre());
+//        } else {
+//            System.out.println("Error al agregar canción: " + post.getStatus());
+//        }
 }
 
 //        

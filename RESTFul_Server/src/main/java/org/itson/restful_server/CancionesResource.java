@@ -11,14 +11,15 @@ import entidades.Cancion;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 import org.itson.restful_server.conversor.ConversorCancion;
 
 /**
@@ -30,7 +31,7 @@ import org.itson.restful_server.conversor.ConversorCancion;
 @RequestScoped
 public class CancionesResource {
 
-    ICancionDAO cancionDAO = new CancionDAO();
+    ICancionDAO cancionDAO;
 
     @Context
     private UriInfo context;
@@ -38,41 +39,51 @@ public class CancionesResource {
     /**
      * Creates a new instance of CancionesResource
      */
-    public CancionesResource() {
+    public CancionesResource() throws Exception {
+        this.cancionDAO = new CancionDAO();
     }
 
-    @Path("/agregar")
-    @POST
+//    @GET
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public String hola() {
+//        return "¡Hola desde el servidor!";
+//    }
+    
+    
+//    @Path("/agregar")
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response agregarCancion(CancionDTO cancion) {
+//        try {
+//            System.out.println("DTO recibido: " + cancion);
+//            Cancion cancionAgregada = ConversorCancion.DTOToEntity(cancion);
+//            System.out.println("Entidad convertida: " + cancionAgregada);
+//            cancionDAO.agregar(cancionAgregada);
+//            System.out.println("Intentando guardar en base de datos");
+//            return Response.status(201).entity(cancion).build();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+//        }
+//    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response agregarCancion(CancionDTO cancion) {
+    public Response getCanciones() {
         try {
-            Cancion cancionAgregada = ConversorCancion.DTOToEntity(cancion);
-            cancionDAO.agregar(cancionAgregada);
-            return Response.status(201).entity(cancion).build();
+            List<Cancion> canciones = cancionDAO.obtenerTodasLasCanciones();
+            
+            System.out.println("Canciones obtenidas: " + canciones.size());
+//            List<CancionDTO> cancionesDTO = new ArrayList<>();
+//            for (Cancion c : canciones) {
+//                cancionesDTO.add(ConversorCancion.entityToDTO(c));
+//            }
+            return Response.status(200).entity(canciones.toArray()).build();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
-    }
 
-//    /**
-//     * Retrieves representation of an instance of org.itson.restful_server.CancionesResource
-//     * @return an instance of java.lang.String
-//     */
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getJson() {
-//        //TODO return proper representation object
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    /**
-//     * PUT method for updating or creating an instance of CancionesResource
-//     * @param content representation for the resource
-//     */
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public void putJson(String content) {
-//    }
+    }
 }
